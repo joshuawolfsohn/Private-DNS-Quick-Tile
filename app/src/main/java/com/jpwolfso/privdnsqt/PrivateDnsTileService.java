@@ -1,6 +1,7 @@
 package com.jpwolfso.privdnsqt;
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Icon;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -26,14 +27,17 @@ public class PrivateDnsTileService extends TileService {
         String dnsmode = Settings.Global.getString(getContentResolver(), "private_dns_mode");
         if (dnsmode.equalsIgnoreCase("off")) {
             tile.setState((Tile.STATE_INACTIVE));
-            tile.setLabel("DNS off");
+            tile.setLabel("DNS Off");
+            tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsoff));
         } else if (dnsmode.equalsIgnoreCase("opportunistic")) {
             tile.setState((Tile.STATE_ACTIVE));
-            tile.setLabel("DNS auto");
+            tile.setLabel("DNS Auto");
+            tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
         } else if (dnsmode.equalsIgnoreCase("hostname")) {
             tile.setState(Tile.STATE_ACTIVE);
             String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
             tile.setLabel(dnsname);
+            tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnson));
         }
 
         tile.updateTile();
@@ -54,15 +58,18 @@ public class PrivateDnsTileService extends TileService {
                 Settings.Global.putString(getContentResolver(), "private_dns_mode", "opportunistic");
                 tile.setState((Tile.STATE_ACTIVE));
                 tile.setLabel("DNS auto");
+                tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
             } else if (dnsmode.equalsIgnoreCase("opportunistic")) {
                 Settings.Global.putString(getContentResolver(), "private_dns_mode", "hostname");
                 tile.setState(Tile.STATE_ACTIVE);
                 String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
                 tile.setLabel(dnsname);
+                tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnson));
             } else if (dnsmode.equals("hostname")) {
                 Settings.Global.putString(getContentResolver(), "private_dns_mode", "off");
                 tile.setState(Tile.STATE_INACTIVE);
                 tile.setLabel("DNS off");
+                tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsoff));
             }
             tile.updateTile();
 
@@ -73,11 +80,7 @@ public class PrivateDnsTileService extends TileService {
 
     public boolean hasPermission() {
 
-        if (checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") == PackageManager.PERMISSION_DENIED) {
-            return false;
-        } else {
-            return true;
-        }
+        return checkCallingOrSelfPermission("android.permission.WRITE_SECURE_SETTINGS") != PackageManager.PERMISSION_DENIED;
     }
 
 
