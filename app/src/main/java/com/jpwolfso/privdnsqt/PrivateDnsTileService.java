@@ -10,6 +10,10 @@ import android.widget.Toast;
 public class PrivateDnsTileService extends TileService {
 
 
+    public static String DNS_MODE_OFF = "off";
+    public static String DNS_MODE_AUTO = "opportunistic";
+    public static String DNS_MODE_ON = "hostname";
+
     public void onTileAdded() {
         super.onTileAdded();
 
@@ -25,15 +29,16 @@ public class PrivateDnsTileService extends TileService {
         Tile tile = this.getQsTile();
 
         String dnsmode = Settings.Global.getString(getContentResolver(), "private_dns_mode");
-        if (dnsmode.equalsIgnoreCase("off")) {
+
+        if (dnsmode.equalsIgnoreCase(DNS_MODE_OFF)) {
             tile.setState((Tile.STATE_INACTIVE));
-            tile.setLabel("DNS Off");
+            tile.setLabel(getString(R.string.qt_off));
             tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsoff));
-        } else if (dnsmode.equalsIgnoreCase("opportunistic")) {
+        } else if (dnsmode.equalsIgnoreCase(DNS_MODE_AUTO)) {
             tile.setState((Tile.STATE_ACTIVE));
-            tile.setLabel("DNS Auto");
+            tile.setLabel(getString(R.string.qt_auto));
             tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
-        } else if (dnsmode.equalsIgnoreCase("hostname")) {
+        } else if (dnsmode.equalsIgnoreCase(DNS_MODE_ON)) {
             tile.setState(Tile.STATE_ACTIVE);
             String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
             tile.setLabel(dnsname);
@@ -52,29 +57,30 @@ public class PrivateDnsTileService extends TileService {
 
         if (hasPermission()) {
             Tile tile = this.getQsTile();
+
             String dnsmode = Settings.Global.getString(getContentResolver(), "private_dns_mode");
 
-            if (dnsmode.equalsIgnoreCase("off")) {
-                Settings.Global.putString(getContentResolver(), "private_dns_mode", "opportunistic");
+            if (dnsmode.equalsIgnoreCase(DNS_MODE_OFF)) {
+                Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_AUTO);
                 tile.setState((Tile.STATE_ACTIVE));
-                tile.setLabel("DNS auto");
+                tile.setLabel(getString(R.string.qt_auto));
                 tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
-            } else if (dnsmode.equalsIgnoreCase("opportunistic")) {
-                Settings.Global.putString(getContentResolver(), "private_dns_mode", "hostname");
+            } else if (dnsmode.equalsIgnoreCase(DNS_MODE_AUTO)) {
+                Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_ON);
                 tile.setState(Tile.STATE_ACTIVE);
                 String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
                 tile.setLabel(dnsname);
                 tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnson));
-            } else if (dnsmode.equals("hostname")) {
-                Settings.Global.putString(getContentResolver(), "private_dns_mode", "off");
+            } else if (dnsmode.equals(DNS_MODE_ON)) {
+                Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_OFF);
                 tile.setState(Tile.STATE_INACTIVE);
-                tile.setLabel("DNS off");
+                tile.setLabel(getString(R.string.qt_off));
                 tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsoff));
             }
             tile.updateTile();
 
         } else if (!(hasPermission())){
-            Toast.makeText(this, "WRITE_SECURE_SETTINGS permission not granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_permission), Toast.LENGTH_SHORT).show();
         }
     }
 

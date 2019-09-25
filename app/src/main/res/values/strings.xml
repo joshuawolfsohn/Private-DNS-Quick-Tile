@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Private DNS Quick Tile</string>
+    <string name="qt_default">Private DNS</string>
+    <string name="qt_off">DNS Off</string>
+    <string name="qt_auto">DNS Auto</string>
+    <string name="toast_permission">WRITE_SECURE_SETTINGS permission not granted</string>
 </resources>
