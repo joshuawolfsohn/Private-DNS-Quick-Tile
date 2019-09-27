@@ -39,10 +39,14 @@ public class PrivateDnsTileService extends TileService {
             tile.setLabel(getString(R.string.qt_auto));
             tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
         } else if (dnsmode.equalsIgnoreCase(DNS_MODE_ON)) {
-            tile.setState(Tile.STATE_ACTIVE);
             String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
-            tile.setLabel(dnsname);
-            tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnson));
+            if ((dnsname != null) && (!dnsname.isEmpty())) {
+                tile.setState(Tile.STATE_ACTIVE);
+                tile.setLabel(dnsname);
+                tile.setIcon(Icon.createWithResource(this, R.drawable.ic_dnson));
+            } else {
+                Toast.makeText(this, "DNS provider not configured", Toast.LENGTH_SHORT).show();
+            }
         }
 
         tile.updateTile();
@@ -66,11 +70,19 @@ public class PrivateDnsTileService extends TileService {
                 tile.setLabel(getString(R.string.qt_auto));
                 tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsauto));
             } else if (dnsmode.equalsIgnoreCase(DNS_MODE_AUTO)) {
-                Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_ON);
-                tile.setState(Tile.STATE_ACTIVE);
-                String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
-                tile.setLabel(dnsname);
-                tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnson));
+                    String dnsname = Settings.Global.getString(getContentResolver(), "private_dns_specifier");
+                    if ((dnsname != null) && (!dnsname.isEmpty())) {
+                        Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_ON);
+                        tile.setState(Tile.STATE_ACTIVE);
+                        tile.setLabel(dnsname);
+                        tile.setIcon(Icon.createWithResource(this, R.drawable.ic_dnson));
+                    } else {
+                        Toast.makeText(this, "DNS provider not configured", Toast.LENGTH_SHORT).show();
+                        Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_OFF);
+                        tile.setState((Tile.STATE_INACTIVE));
+                        tile.setLabel(getString(R.string.qt_off));
+                        tile.setIcon(Icon.createWithResource(this,R.drawable.ic_dnsoff));
+                    }
             } else if (dnsmode.equals(DNS_MODE_ON)) {
                 Settings.Global.putString(getContentResolver(), "private_dns_mode", DNS_MODE_OFF);
                 tile.setState(Tile.STATE_INACTIVE);
