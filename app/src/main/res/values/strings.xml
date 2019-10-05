@@ -3,5 +3,7 @@
     <string name="qt_default">Private DNS</string>
     <string name="qt_off">DNS Off</string>
     <string name="qt_auto">DNS Auto</string>
+    <string name="dns_on">DNS On</string>
     <string name="toast_permission">WRITE_SECURE_SETTINGS permission not granted</string>
+    <string name="dns_hostname_hint">Enter hostname of DNS provider</string>
 </resources>
