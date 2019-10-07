@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="App info"
+        android:id="@+id/action_appinfo">
+    </item>
+    <item
+        android:title="View on F-Droid"
+        android:id="@+id/action_fdroid">
+    </item>
+</menu>
