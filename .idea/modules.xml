@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PrivateDNSQuickTile.iml" filepath="$PROJECT_DIR$/PrivateDNSQuickTile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Private-DNS-Quick-Tile.iml" filepath="$PROJECT_DIR$/Private-DNS-Quick-Tile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
