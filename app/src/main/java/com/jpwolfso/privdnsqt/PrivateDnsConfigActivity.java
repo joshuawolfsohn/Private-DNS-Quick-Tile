@@ -1,6 +1,7 @@
 package com.jpwolfso.privdnsqt;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,9 +18,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import android.widget.VideoView;
 
 public class PrivateDnsConfigActivity extends Activity {
 
@@ -26,8 +27,6 @@ public class PrivateDnsConfigActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_dns_config);
-
-        getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         final SharedPreferences togglestates = getSharedPreferences("togglestates", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = togglestates.edit();
@@ -39,6 +38,11 @@ public class PrivateDnsConfigActivity extends Activity {
         final EditText texthostname = findViewById(R.id.text_hostname);
 
         final Button okbutton = findViewById(R.id.button_ok);
+
+        if ((!hasPermission()) || togglestates.getBoolean("first_run", true) ){
+            HelpMenu();
+            editor.putBoolean("first_run", false).commit();
+        }
 
         if (togglestates.getBoolean("toggle_off", true)) {
             checkoff.setChecked(true);
@@ -102,42 +106,21 @@ public class PrivateDnsConfigActivity extends Activity {
                 if (hasPermission()) {
                     if (checkon.isChecked()) {
                         if (texthostname.getText().toString().isEmpty()) {
-                            Toast.makeText(PrivateDnsConfigActivity.this, "DNS provider not configured", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PrivateDnsConfigActivity.this, R.string.toast_no_dns, Toast.LENGTH_SHORT).show();
                             return;
                         } else {
                             Settings.Global.putString(getContentResolver(), "private_dns_specifier", texthostname.getText().toString());
                         }
                     }
                     editor.commit();
+                    Toast.makeText(PrivateDnsConfigActivity.this, R.string.toast_changes_saved, Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(PrivateDnsConfigActivity.this, getString(R.string.toast_permission), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PrivateDnsConfigActivity.this, getString(R.string.toast_no_permission), Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
         });
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_config);
-        toolbar.showOverflowMenu();
-        setActionBar(toolbar);
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.action_appinfo) {
-                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    intent.setData(Uri.parse("package:" + getPackageName()));
-                    startActivity(intent);
-                }   else if (id == R.id.action_fdroid) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("https://f-droid.org/en/packages/com.jpwolfso.privdnsqt/"));
-                    startActivity(intent);
-                }
-                    return false;
-            }
-        });
-
 
     }
 
@@ -147,8 +130,43 @@ public class PrivateDnsConfigActivity extends Activity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_overflow,menu);
+        inflater.inflate(R.menu.menu_overflow, menu);
         return true;
     }
 
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_appinfo) {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        } else if (id == R.id.action_fdroid) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(getString(R.string.url_fdroid)));
+            startActivity(intent);
+        } else if (id == R.id.action_help) {
+            HelpMenu();
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
+
+    public void HelpMenu() {
+        LayoutInflater layoutInflater = LayoutInflater.from(PrivateDnsConfigActivity.this);
+        View helpView = layoutInflater.inflate(R.layout.dialog_help, null);
+
+        VideoView videoView = helpView.findViewById(R.id.videoView);
+        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.terminal));
+        videoView.start();
+
+        AlertDialog helpDialog = new AlertDialog
+                .Builder(PrivateDnsConfigActivity.this)
+                .setMessage(R.string.message_help)
+                .setPositiveButton(android.R.string.ok, null)
+                .setView(helpView)
+                .create();
+        helpDialog.show();
+
+    }
 }

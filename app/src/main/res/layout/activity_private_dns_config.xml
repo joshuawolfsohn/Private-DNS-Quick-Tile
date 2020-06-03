@@ -1,35 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearlayout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:orientation="vertical"
-    android:weightSum="1"
+    android:paddingVertical="10dp"
     tools:context=".PrivateDnsConfigActivity">
 
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.25"></Toolbar>
-
     <RadioGroup
+        android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.25"
-        android:weightSum="3">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
             android:id="@+id/check_off"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="15dp"
+            android:paddingVertical="10dp"
             android:text="@string/qt_off" />
 
         <CheckBox
@@ -37,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="15dp"
+            android:paddingVertical="10dp"
             android:text="@string/qt_auto" />
 
         <CheckBox
@@ -46,29 +39,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="15dp"
+            android:paddingVertical="10dp"
             android:text="@string/dns_on" />
     </RadioGroup>
 
     <EditText
         android:id="@+id/text_hostname"
-        style="@android:style/Widget.DeviceDefault.EditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.15"
         android:hint="@string/dns_hostname_hint"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingVertical="10dp"
         android:singleLine="true"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
 
     <Button
         android:id="@+id/button_ok"
-        style="@android:style/Widget.DeviceDefault.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.10"
-        android:text="@android:string/ok" />
+        android:layout_margin="20dp"
+        android:paddingVertical="10dp"
+        android:text="@android:string/ok"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hostname" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

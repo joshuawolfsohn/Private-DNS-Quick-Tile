@@ -40,7 +40,7 @@ public class PrivateDnsTileService extends TileService {
             if ((dnsprovider != null)) {
                 refreshTile(tile, Tile.STATE_ACTIVE, dnsprovider, R.drawable.ic_dnson);
             } else {
-                Toast.makeText(this, "DNS provider not configured", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_no_permission, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -90,7 +90,7 @@ public class PrivateDnsTileService extends TileService {
             }
 
         } else if (!(hasPermission())) {
-            Toast.makeText(this, getString(R.string.toast_permission), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_no_permission), Toast.LENGTH_SHORT).show();
         }
     }
 

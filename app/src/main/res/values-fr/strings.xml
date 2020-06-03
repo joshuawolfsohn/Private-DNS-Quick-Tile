@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Paramètre rapide du DNS privé</string>
+    <string name="qt_auto" translatable="false">DNS automatique</string>
+    <string name="qt_off">DNS désactivé</string>
+    <string name="dns_on">DNS activé</string>
+    <string name="qt_default">DNS privé</string>
+    <string name="app_config">Modes de paramètre rapide du DNS privé</string>
+    <string name="dns_hostname_hint">Entrez le nom d\'hôte du fournisseur DNS privé</string>
+    <string name="toast_changes_saved">Vos modifications ont été enregistrées</string>
+    <string name="url_fdroid">https://f-droid.org/fr/packages/com.jpwolfso.privdnsqt/</string>
+    <string name="toast_no_permission">L\'autorisation pour WRITE_SECURE_SETTINGS n\'est pas accordée</string>
+    <string name="message_help">"Pour modifier les paramètres du DNS privé, vous devez accorder l'autorisation pour WRITE_SECURE_SETTINGS à cette application: "</string>
+    <string name="toast_no_dns">Le nom d\'hôte du fournisseur DNS privé n\'est pas configuré</string>
+    <string name="help">Aide</string>
+    <string name="app_info">Info sur l\'app</string>
+    <string name="view_fdroid">Afficher les détails sur F-Droid</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="CustomTheme">
+        <item name="android:colorPrimaryDark">@android:color/black</item>
+    </style>
+
+    <style name="CustomTheme" parent="android:Theme.DeviceDefault">
+    </style>
+
+</resources>

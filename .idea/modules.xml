@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Private-DNS-Quick-Tile.iml" filepath="$PROJECT_DIR$/Private-DNS-Quick-Tile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Private-DNS-Quick-Tile.iml" filepath="$PROJECT_DIR$/.idea/modules/Private-DNS-Quick-Tile.iml" group="Private-DNS-Quick-Tile" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="Private-DNS-Quick-Tile/app" />
     </modules>
   </component>
 </project>
