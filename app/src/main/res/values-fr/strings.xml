@@ -15,4 +15,7 @@
     <string name="help">Aide</string>
     <string name="app_info">Info sur l\'app</string>
     <string name="view_fdroid">Afficher les détails sur F-Droid</string>
+    <string name="shortcut_enable">Activer le DNS privé</string>
+    <string name="shortcut_disable">Désactiver le DNS privé</string>
+    <string name="shortcut_toggle">Basculer vers le DNS privé</string>
 </resources>

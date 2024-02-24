@@ -18,12 +18,23 @@
         <activity
             android:name=".PrivateDnsConfigActivity"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:label="@string/app_config">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
                 <category android:name="android.intent.category.LAUNCHER" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:name=".PrivateDnsShortcutActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
         </activity>
 
         <service
