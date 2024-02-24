@@ -14,4 +14,7 @@
     <string name="app_info">App info</string>
     <string name="view_fdroid">View on F-Droid</string>
     <string name="help">Help</string>
+    <string name="shortcut_enable">Enable Private DNS</string>
+    <string name="shortcut_disable">Disable Private DNS</string>
+    <string name="shortcut_toggle">Toggle Private DNS</string>
 </resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_dnson"
+        android:shortcutId="enable"
+        android:shortcutShortLabel="@string/shortcut_enable">
+        <intent
+            android:action="com.jpwolfso.privdnsqt.ACTION_ENABLE"
+            android:targetClass="com.jpwolfso.privdnsqt.PrivateDnsShortcutActivity"
+            android:targetPackage="com.jpwolfso.privdnsqt" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_dnsoff"
+        android:shortcutId="disable"
+        android:shortcutShortLabel="@string/shortcut_disable">
+        <intent
+            android:action="com.jpwolfso.privdnsqt.ACTION_DISABLE"
+            android:targetClass="com.jpwolfso.privdnsqt.PrivateDnsShortcutActivity"
+            android:targetPackage="com.jpwolfso.privdnsqt" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_dnsauto"
+        android:shortcutId="toggle"
+        android:shortcutShortLabel="@string/shortcut_toggle">
+        <intent
+            android:action="com.jpwolfso.privdnsqt.ACTION_TOGGLE"
+            android:targetClass="com.jpwolfso.privdnsqt.PrivateDnsShortcutActivity"
+            android:targetPackage="com.jpwolfso.privdnsqt" />
+    </shortcut>
+</shortcuts>
